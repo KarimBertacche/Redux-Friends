@@ -1,7 +1,15 @@
+import * as types from '../actions/actions';
+
 const initialState = {
     friends: [],
+    loggedIn: false,
 }
 
 export const reducer = (state = initialState, action) => {
-    return state;
+    switch(action.type) {
+        case types.LOGIN:
+            return { ...state, loggedIn: true }
+        default:
+            return state;   
+    } 
 }
