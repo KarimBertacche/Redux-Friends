@@ -1,6 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 
-function FriendsContainer() {
+import { getData } from '../store/actions/actionCreators';
+
+function FriendsContainer() {    
+    useEffect(() => {
+        this.props.getData();
+    });
+
     return (
         <div>
             Hello Friends!
@@ -8,4 +15,4 @@ function FriendsContainer() {
     );
 }
 
-export default FriendsContainer;
+export default connect(null, { getData })(FriendsContainer);

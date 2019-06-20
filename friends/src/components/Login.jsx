@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import Loader from 'react-loader-spinner';
 
 import { login } from '../store/actions/actionCreators';
 
@@ -38,7 +39,10 @@ class Login extends React.Component {
 
     login = (event) => {
         event.preventDefault();
-        this.props.login(this.state.credentials);
+        this.props.login(this.state.credentials)
+            .then(response => {
+                this.props.history.push('/protected');
+            });
     }
 
     render() {
@@ -57,15 +61,22 @@ class Login extends React.Component {
                         value={this.state.credentials.password}
                         onChange={this.loginInputHandler}
                     />
-                    <button type="submit">Login</button>
+                    <button 
+                        type="submit"
+                    >{this.props.isAuth 
+                        ? ( <Loader type="ThreeDots" color="1f2a38" height="12" width="26" /> )
+                        : ('Login')
+                    }</button>
                 </form>
             </StylesLogin>
         )
     }
 };
 
-// const mapDispatchToProps = dispatch => {
-//     const login = dispatch(login());
-// }
+const mapStateToProps = state => {
+    return {
+        isAuth: state.isAuth
+    }
+}
 
-export default connect(null, { login })(Login);
+export default connect(mapStateToProps, { login })(Login);
