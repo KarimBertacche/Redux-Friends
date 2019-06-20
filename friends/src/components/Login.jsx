@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+
+import { login } from '../store/actions/actionCreators';
 
 const StylesLogin = styled.div`
     form {
@@ -20,25 +23,28 @@ class Login extends React.Component {
             credentials: {
                 username: '',
                 password: ''
-            }
+            },
         }
     }
 
     loginInputHandler = (event) => {
-        this.setState(prevState => ({
-            ...prevState.credentials,
-            [event.target.name]: event.target.value
-        }))
+        this.setState({
+            credentials: {
+                ...this.state.credentials,
+                [event.target.name]: event.target.value
+            }
+        });
     }
 
     login = (event) => {
         event.preventDefault();
+        this.props.login(this.state.credentials);
     }
 
     render() {
         return (
             <StylesLogin>
-                <form onSubmit="">
+                <form onSubmit={this.login}>
                     <input 
                         type="text" 
                         name="username"
@@ -57,3 +63,9 @@ class Login extends React.Component {
         )
     }
 };
+
+// const mapDispatchToProps = dispatch => {
+//     const login = dispatch(login());
+// }
+
+export default connect(null, { login })(Login);
