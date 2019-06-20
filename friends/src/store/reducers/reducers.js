@@ -19,6 +19,21 @@ export const reducer = (state = initialState, action) => {
             return { ...state, friends: action.payload, spinner: false };
         case types.FETCH_FRIENDS_FAILURE:
             return {...state, error: action.payload, spinner: false };
+        case types.UPDATE_FRIEND:
+            const upDatedFriends = state.friends.map(friend => {
+                if(friend.id === action.payload.id) {
+                    return { 
+                        ...friend,
+                        name: action.payload.name,
+                        age: action.payload.age,
+                        email: action.payload.email,
+                    }
+                }
+                return friend;
+            })
+            return {...state, friends: upDatedFriends }
+        case types.DELETE_FRIEND:
+            return {...state}
         default:
             return state;   
     } 

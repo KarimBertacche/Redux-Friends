@@ -1,6 +1,7 @@
 import * as types from './actions';
 import axios from 'axios';
 import { axiosWithAuth } from '../../axiosWithAuth';
+import { bindActionCreators } from '../../../../../../Library/Caches/typescript/3.5/node_modules/redux';
 
 const loginAPI = 'http://localhost:5000/api/login';
 const friendsData = 'http://localhost:5000/api/friends';
@@ -19,7 +20,7 @@ export const login = ({username, password}) => dispatch => {
         });
 }
 
-export const getData = () => dispatch => {
+export const getFriends = () => dispatch => {
     dispatch({ type: types.FETCH_FRIENDS_START });
     axiosWithAuth()
         .get(friendsData)
@@ -30,3 +31,31 @@ export const getData = () => dispatch => {
             dispatch({ type: types.FETCH_FRIENDS_FAILURE, payload: error.message })
         });
 }
+
+export const updateFriends = (id) =>  dispatch => {
+    axiosWithAuth()
+        .put(friendsData + '/' + id, { 
+            name: '',
+            age: '',
+            email: ''
+        })
+        .then(response => {
+
+        })
+        .catch(error => {
+
+        });
+}
+
+export const deleteFriend = (id) => dispatch => {
+    axiosWithAuth()
+        .delete(friendsData + '/' + id)
+        .then(response => {
+            debugger
+            getFriends();
+        })
+        .catch(error => {
+
+        });
+}
+

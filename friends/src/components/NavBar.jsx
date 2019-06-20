@@ -6,8 +6,17 @@ const StylesNavBar = styled.header`
     height: 70px;
 
     section {
+        width: 300px;
+        margin: 0 auto;
+        border: 3px solid black;
         display: flex;
-        justify-content: column;
+        flex-direction: column;
+
+        input {
+            border-bottom: 3px solid black;
+            text-align: center;
+            outline: none;
+        }
     }
 `;
 
