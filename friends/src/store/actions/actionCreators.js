@@ -1,7 +1,6 @@
 import * as types from './actions';
 import axios from 'axios';
 import { axiosWithAuth } from '../../axiosWithAuth';
-import { bindActionCreators } from '../../../../../../Library/Caches/typescript/3.5/node_modules/redux';
 
 const loginAPI = 'http://localhost:5000/api/login';
 const friendsData = 'http://localhost:5000/api/friends';
@@ -40,10 +39,11 @@ export const addFriend = ({ name, age, email }) => dispatch => {
             email: email 
         })
         .then(response => {
+            dispatch({ type: types.ADD_FRIEND, payload: response.data })
             getFriends();
         })
         .catch(error => {
-
+            dispatch({ type: types.ADD_FRIEND, payload: error.message });
         });
 }
 
@@ -55,10 +55,11 @@ export const updateFriend = (id, { name, age, email } ) =>  dispatch => {
             email: email 
         })
         .then(response => {
+            dispatch({ type: types.UPDATE_FRIEND, payload: response.data });
             getFriends();
         })
         .catch(error => {
-
+            dispatch({ type: types.UPDATE_FRIEND, payload: error.message });
         });
 }
 
@@ -66,10 +67,11 @@ export const deleteFriend = (id) => dispatch => {
     axiosWithAuth()
         .delete(friendsData + '/' + id)
         .then(response => {
+            dispatch({ type: types.DELETE_FRIEND, payload: response.data });
             getFriends();
         })
         .catch(error => {
-
+            dispatch({ type: types.DELETE_FRIEND, payload: error.message });
         });
 }
 

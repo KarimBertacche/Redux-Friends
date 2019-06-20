@@ -36,6 +36,11 @@ const StylesFriend = styled.div`
         border-top-right-radius: 5px;
         font-weight: bold;
         cursor: pointer;
+
+        &:hover {
+            background: #000;
+            color: #fff;
+        }
     }
 
 `;
@@ -47,7 +52,7 @@ function Friend(props) {
             <h2>{props.name}</h2>
             <p>{props.age}</p>
             <p>{props.email}</p>
-            <button onClick={() => props.updateFriendHandler(
+            <button onClick={() => props.passFriendHandler(
                 props.id, 
                 props.name, 
                 props.age, 

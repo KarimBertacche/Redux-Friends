@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import { getFriends } from '../store/actions/actionCreators';
+import { getFriends, addFriend, updateFriend } from '../store/actions/actionCreators';
 import Friend from '../components/Friend';
 import NavBar from '../components/NavBar';
 
@@ -10,6 +10,7 @@ const StylesFriendsContainer = styled.div`
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    padding-top: 150px;
 `;
 
 class FriendsContainer extends React.Component {
@@ -31,14 +32,47 @@ class FriendsContainer extends React.Component {
     changeInputHandler = event => {
         this.setState({ [event.target.name ]: event.target.value })
     };
+
+    addFriendHandler = () => {
+        this.props.addFriend({ 
+            name: this.state.name,
+            age: this.state.age,
+            email: this.state.email
+        });
+
+        this.setState({
+            name: '',
+            age: '',
+            email: '',
+        });
+    }
     
-    updateFriendHandler = (id, name, age, email) => {
+    passFriendHandler = (id, name, age, email) => {
         this.setState({ 
             name,
             age,
             email,
             id, 
             submitText: 'Update friend'
+        })
+    }
+
+    updateFriendHandler = () => {
+        this.props.updateFriend(
+            this.state.id, 
+            {
+            name: this.state.name,
+            age: this.state.age,
+            email: this.state.email
+            }
+        );
+
+        this.setState({
+            name: '',
+            age: '',
+            email: '',
+            id: null,
+            submitText: 'Add friend'
         })
     }
 
@@ -56,6 +90,8 @@ class FriendsContainer extends React.Component {
                     id={this.state.id}
                     submitText={this.state.submitText}
                     changeInputHandler={this.changeInputHandler}
+                    addFriendHandler={this.addFriendHandler}
+                    updateFriendHandler={this.updateFriendHandler}
                 />
                 <StylesFriendsContainer>
                     {
@@ -66,8 +102,8 @@ class FriendsContainer extends React.Component {
                                         name={friend.name}
                                         age={friend.age}
                                         email={friend.email}
-                                        updateFriendHandler={this.updateFriendHandler}
-                                        />
+                                        passFriendHandler={this.passFriendHandler}
+                                    />
                         })
                     }
                 </StylesFriendsContainer>
@@ -82,4 +118,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { getFriends })(FriendsContainer);
+export default connect(mapStateToProps, { getFriends, addFriend, updateFriend })(FriendsContainer);

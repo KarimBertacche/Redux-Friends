@@ -20,11 +20,11 @@ export const reducer = (state = initialState, action) => {
         case types.FETCH_FRIENDS_FAILURE:
             return {...state, error: action.payload, spinner: false };
         case types.ADD_FRIEND:
-            return { ...state };
+            return { ...state, friend: action.payload };
         case types.UPDATE_FRIEND:
-            return { ...state }
+            return { ...state, friend: action.payload }
         case types.DELETE_FRIEND:
-            return {...state}
+            return { ...state, friend: action.payload }
         default:
             return state;   
     } 

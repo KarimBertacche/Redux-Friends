@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-
-import { addFriend, updateFriend  } from '../store/actions/actionCreators';
 
 const StylesAddFriend = styled.div`
     width: 300px;
@@ -10,11 +8,25 @@ const StylesAddFriend = styled.div`
     border: 3px solid black;
     display: flex;
     flex-direction: column;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    overflow: hidden;
+    z-index: 100;
 
     input {
+        height: 25px;
         border-bottom: 3px solid black;
         text-align: center;
         outline: none;
+        font-size: 1rem;
+    }
+
+    button {
+        background: #000;
+        padding: 5px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #fff;
     }
 `;
 
@@ -38,17 +50,11 @@ function AddFriend(props) {
                 onChange={props.changeInputHandler}/>
             <button onClick={
                 props.submitText === 'Add friend' 
-                ? () => props.addFriend({ 
-                    name: props.name,
-                    age: props.age,
-                    email: props.email})
-                : () => props.updateFriend( props.id, {
-                    name: props.name,
-                    age: props.age,
-                    email: props.email})
+                ? props.addFriendHandler 
+                : props.updateFriendHandler
             }>{props.submitText}</button>
         </StylesAddFriend>
     )
 } 
 
-export default connect(null, { addFriend, updateFriend  })(AddFriend);
+export default connect()(AddFriend);
