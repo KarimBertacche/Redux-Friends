@@ -11,9 +11,9 @@ const StylesAddFriend = styled.div`
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     overflow: hidden;
-    z-index: 100;
 
     input {
+        background: #fff;
         height: 25px;
         border-bottom: 3px solid black;
         text-align: center;
@@ -27,6 +27,11 @@ const StylesAddFriend = styled.div`
         font-size: 1.2rem;
         font-weight: bold;
         color: #fff;
+        cursor: pointer;
+
+        &:hover {
+            color: #0f0;
+        }
     }
 `;
 

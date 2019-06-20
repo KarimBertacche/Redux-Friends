@@ -34,17 +34,19 @@ class FriendsContainer extends React.Component {
     };
 
     addFriendHandler = () => {
-        this.props.addFriend({ 
-            name: this.state.name,
-            age: this.state.age,
-            email: this.state.email
-        });
-
-        this.setState({
-            name: '',
-            age: '',
-            email: '',
-        });
+        if(this.state.name !== "" && this.state.email !== "" && this.state.age !== "") {
+            this.props.addFriend({ 
+                name: this.state.name,
+                age: this.state.age,
+                email: this.state.email
+            });
+    
+            this.setState({
+                name: '',
+                age: '',
+                email: '',
+            });
+        }
     }
     
     passFriendHandler = (id, name, age, email) => {

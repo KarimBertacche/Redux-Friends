@@ -39,7 +39,7 @@ const StylesFriend = styled.div`
 
         &:hover {
             background: #000;
-            color: #fff;
+            color: #0f0;
         }
     }
 
