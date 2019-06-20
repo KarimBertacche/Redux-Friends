@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import { addFriend } from '../store/actions/actionCreators';
+import { addFriend, updateFriend  } from '../store/actions/actionCreators';
 
 const StylesAddFriend = styled.div`
     width: 300px;
@@ -18,46 +18,37 @@ const StylesAddFriend = styled.div`
     }
 `;
 
-class AddFriend extends React.Component {
-    constructor(props) {
-        super();
-        this.state = {
-            name: '',
-            age: '',
-            email: ''
-        }
-    }
-
-    changeInputHandler = event => {
-        this.setState({ [event.target.name ]: event.target.value })
-    }
-
-    render() {
-        return (
-            <StylesAddFriend>
-                <input 
-                    type="text" 
-                    name="name"
-                    value={this.state.name}
-                    onChange={this.changeInputHandler}/>
-                <input 
-                    type="number" 
-                    name="age"
-                    value={this.state.age}
-                    onChange={this.changeInputHandler}/>
-                <input 
-                    type="email" 
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.changeInputHandler}/>
-                <button onClick={() => this.props.addFriend({ 
-                    name: this.state.name,
-                    age: this.state.age,
-                    email: this.state.email
-                })}>Add friend</button>
-            </StylesAddFriend>
-        )
-    }
+function AddFriend(props) {
+    return (
+        <StylesAddFriend>
+            <input 
+                type="text" 
+                name="name"
+                value={props.name}
+                onChange={props.changeInputHandler}/>
+            <input 
+                type="number" 
+                name="age"
+                value={props.age}
+                onChange={props.changeInputHandler}/>
+            <input 
+                type="email" 
+                name="email"
+                value={props.email}
+                onChange={props.changeInputHandler}/>
+            <button onClick={
+                props.submitText === 'Add friend' 
+                ? () => props.addFriend({ 
+                    name: props.name,
+                    age: props.age,
+                    email: props.email})
+                : () => props.updateFriend( props.id, {
+                    name: props.name,
+                    age: props.age,
+                    email: props.email})
+            }>{props.submitText}</button>
+        </StylesAddFriend>
+    )
 } 
 
-export default connect(null, { addFriend })(AddFriend);
+export default connect(null, { addFriend, updateFriend  })(AddFriend);

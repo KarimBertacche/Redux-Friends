@@ -5,7 +5,7 @@ import AddFriend from './AddFriend';
 
 const StylesNavBar = styled.header`
     background-color: red;
-    height: 70px;
+    height: 100px;
 `;
 
 export default function NavBar(props) {
@@ -13,7 +13,14 @@ export default function NavBar(props) {
         <StylesNavBar>
             <nav>
                 <section>
-                    <AddFriend />
+                    <AddFriend 
+                        name={props.name}
+                        age={props.age}
+                        email={props.email}
+                        id={props.id}
+                        submitText={props.submitText}
+                        changeInputHandler={props.changeInputHandler}
+                    />
                 </section>
             </nav>
         </StylesNavBar>

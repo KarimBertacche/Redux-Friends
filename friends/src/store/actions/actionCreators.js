@@ -47,15 +47,15 @@ export const addFriend = ({ name, age, email }) => dispatch => {
         });
 }
 
-export const updateFriends = (id) =>  dispatch => {
+export const updateFriend = (id, { name, age, email } ) =>  dispatch => {
     axiosWithAuth()
         .put(friendsData + '/' + id, { 
-            name: '',
-            age: '',
-            email: ''
+            name: name,
+            age: age,
+            email: email 
         })
         .then(response => {
-
+            getFriends();
         })
         .catch(error => {
 

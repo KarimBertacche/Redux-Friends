@@ -12,28 +12,68 @@ const StylesFriendsContainer = styled.div`
     flex-wrap: wrap;
 `;
 
-function FriendsContainer(props) {    
-    useEffect(() => {
-        props.getFriends();
-    });
+class FriendsContainer extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            name: '',
+            age: '',
+            email: '',
+            id: null,
+            submitText: 'Add friend'
+        }
+    }
 
-    return (
-        <div>
-            <NavBar />
-            <StylesFriendsContainer>
-                {
-                    props.friends.map(friend => {
-                        return  <Friend 
-                                    key={friend.id}
-                                    id={friend.id}
-                                    name={friend.name}
-                                    age={friend.age}
-                                    email={friend.email}/>
-                    })
-                }
-            </StylesFriendsContainer>
-        </div>
-    );
+    componentDidMount() {
+        this.props.getFriends();
+    };
+
+    changeInputHandler = event => {
+        this.setState({ [event.target.name ]: event.target.value })
+    };
+    
+    updateFriendHandler = (id, name, age, email) => {
+        this.setState({ 
+            name,
+            age,
+            email,
+            id, 
+            submitText: 'Update friend'
+        })
+    }
+
+    componentDidUpdate() {
+        this.props.getFriends();
+    };
+   
+    render() {
+        return (
+            <div>
+                <NavBar 
+                    name={this.state.name}
+                    age={this.state.age}
+                    email={this.state.email}
+                    id={this.state.id}
+                    submitText={this.state.submitText}
+                    changeInputHandler={this.changeInputHandler}
+                />
+                <StylesFriendsContainer>
+                    {
+                        this.props.friends.map(friend => {
+                            return  <Friend 
+                                        key={friend.id}
+                                        id={friend.id}
+                                        name={friend.name}
+                                        age={friend.age}
+                                        email={friend.email}
+                                        updateFriendHandler={this.updateFriendHandler}
+                                        />
+                        })
+                    }
+                </StylesFriendsContainer>
+            </div>
+        );
+    }
 }
 
 const mapStateToProps = state => {

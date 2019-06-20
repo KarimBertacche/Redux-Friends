@@ -22,18 +22,7 @@ export const reducer = (state = initialState, action) => {
         case types.ADD_FRIEND:
             return { ...state };
         case types.UPDATE_FRIEND:
-            const upDatedFriends = state.friends.map(friend => {
-                if(friend.id === action.payload.id) {
-                    return { 
-                        ...friend,
-                        name: action.payload.name,
-                        age: action.payload.age,
-                        email: action.payload.email,
-                    }
-                }
-                return friend;
-            })
-            return {...state, friends: upDatedFriends }
+            return { ...state }
         case types.DELETE_FRIEND:
             return {...state}
         default:
