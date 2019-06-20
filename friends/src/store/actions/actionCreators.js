@@ -32,6 +32,21 @@ export const getFriends = () => dispatch => {
         });
 }
 
+export const addFriend = ({ name, age, email }) => dispatch => {
+    axiosWithAuth()
+        .post(friendsData, { 
+            name: name,
+            age: age,
+            email: email 
+        })
+        .then(response => {
+            getFriends();
+        })
+        .catch(error => {
+
+        });
+}
+
 export const updateFriends = (id) =>  dispatch => {
     axiosWithAuth()
         .put(friendsData + '/' + id, { 
@@ -51,7 +66,6 @@ export const deleteFriend = (id) => dispatch => {
     axiosWithAuth()
         .delete(friendsData + '/' + id)
         .then(response => {
-            debugger
             getFriends();
         })
         .catch(error => {
