@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <div>
-        <PrivateRoute path="/private" component={FriendsContainer} />
+        <PrivateRoute path="/protected" component={FriendsContainer} />
         <Route path="/login" component={Login} />
       </div>
     </>

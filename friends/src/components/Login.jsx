@@ -13,18 +13,47 @@ const StylesLogin = styled.div`
     }
 `;
 
-export default function Login() {
-    return (
-        <StylesLogin>
-            <form onSubmit="">
-                <input 
-                    type="text" 
-                />
-                <input 
-                    type="password" 
-                />
-                <button type="submit">Login</button>
-            </form>
-        </StylesLogin>
-    )
+class Login extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            credentials: {
+                username: '',
+                password: ''
+            }
+        }
+    }
+
+    loginInputHandler = (event) => {
+        this.setState(prevState => ({
+            ...prevState.credentials,
+            [event.target.name]: event.target.value
+        }))
+    }
+
+    login = (event) => {
+        event.preventDefault();
+    }
+
+    render() {
+        return (
+            <StylesLogin>
+                <form onSubmit="">
+                    <input 
+                        type="text" 
+                        name="username"
+                        value={this.state.credentials.username}
+                        onChange={this.loginInputHandler}
+                    />
+                    <input 
+                        type="password" 
+                        name="password"
+                        value={this.state.credentials.password}
+                        onChange={this.loginInputHandler}
+                    />
+                    <button type="submit">Login</button>
+                </form>
+            </StylesLogin>
+        )
+    }
 };
